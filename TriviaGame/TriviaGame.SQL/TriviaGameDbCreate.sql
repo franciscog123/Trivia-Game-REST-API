@@ -9,17 +9,17 @@ create table [User] (
 create table Quiz (
 	QuizId int identity,
 	UserId int not null,
-	CatagoryId int not null,
+	CategoryId int not null,
 	GameModeId int not null,
 	Score int not null,
 	Time datetime not null,
 	constraint PK_QuizId primary key(QuizId)
 )
 
-create table Catagory (
-	CatagoryId int identity,
-	Catagory nvarchar(20),
-	constraint PK_CatagoryId primary key(CatagoryId)
+create table Category (
+	CategoryId int identity,
+	Category nvarchar(20),
+	constraint PK_CategoryId primary key(CategoryId)
 )
 
 create table GameMode (
@@ -30,7 +30,7 @@ create table GameMode (
 
 create table Question (
 	QuestionId int identity,
-	CatagoryId int not null,
+	CategoryId int not null,
 	Question nvarchar(200) not null,
 	Value int not null,
 	constraint PK_QuestionId primary key(QuestionId)
@@ -53,7 +53,7 @@ create table Choice (
 
 alter table Quiz add
 	constraint FK_UserId foreign key(UserId) references [User](UserId),
-	constraint FK_CatagoryId1 foreign key(CatagoryId) references Catagory(CatagoryId),
+	constraint FK_CategoryId1 foreign key(CategoryId) references Category(CategoryId),
 	constraint FK_GameModeId foreign key(GameModeId) references GameMode(GameModeId)
 
 alter table QuizQuestion add
@@ -64,4 +64,4 @@ alter table Choice add
 	constraint FK_QuestionId2 foreign key(QuestionId) references Question(QuestionId)
 
 alter table Question add
-	constraint FK_CatagoryId2 foreign key(CatagoryId) references Catagory(CatagoryId)
+	constraint FK_CategoryId2 foreign key(CategoryId) references Category(CategoryId)
