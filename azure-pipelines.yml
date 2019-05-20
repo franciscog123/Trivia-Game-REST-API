@@ -17,10 +17,11 @@ steps:
 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'sonarcloud-guerrerof'
+    SonarCloud: 'Project2-SonarCloud-Connection'
     organization: 'franciscog123-github'
     scannerMode: 'MSBuild'
     projectKey: 'Project2-TriviaGame-RestApi'
+    projectName: 'Project2-TriviaGame-RestApi'
 
 - script: dotnet build --configuration $(buildConfiguration) $(solutionPath)
   displayName: 'dotnet build $(buildConfiguration) $(solutionPath)'
