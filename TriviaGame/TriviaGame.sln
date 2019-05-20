@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaGame.Library", "TriviaGame.Library\TriviaGame.Library.csproj", "{777046BD-F3E6-4F57-B25C-32324CE2FFEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TriviaGame.Library", "TriviaGame.Library\TriviaGame.Library.csproj", "{777046BD-F3E6-4F57-B25C-32324CE2FFEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaGame.DataAccess", "TriviaGame.DataAccess\TriviaGame.DataAccess.csproj", "{31EDA319-041C-4C0D-804D-DD1F941BAD15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TriviaGame.DataAccess", "TriviaGame.DataAccess\TriviaGame.DataAccess.csproj", "{31EDA319-041C-4C0D-804D-DD1F941BAD15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaGame.Tests", "TriviaGame.Tests\TriviaGame.Tests.csproj", "{854B605D-8B3C-4AE3-955E-1DEEB52B97AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaGame.WebUI", "TriviaGame.WebUI\TriviaGame.WebUI.csproj", "{2BB15094-3B8D-4C72-B76D-7D5B2476ED45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TriviaGame.Tests", "TriviaGame.Tests\TriviaGame.Tests.csproj", "{854B605D-8B3C-4AE3-955E-1DEEB52B97AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{854B605D-8B3C-4AE3-955E-1DEEB52B97AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{854B605D-8B3C-4AE3-955E-1DEEB52B97AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{854B605D-8B3C-4AE3-955E-1DEEB52B97AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2BB15094-3B8D-4C72-B76D-7D5B2476ED45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2BB15094-3B8D-4C72-B76D-7D5B2476ED45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2BB15094-3B8D-4C72-B76D-7D5B2476ED45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2BB15094-3B8D-4C72-B76D-7D5B2476ED45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
