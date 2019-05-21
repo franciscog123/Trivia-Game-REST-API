@@ -20,5 +20,6 @@ namespace TriviaGame.Library.Models
             }
         }
         public List<Question> QuestionsByCategory { get; set; } = new List<Question>();
+        public List<Quiz> QuizzesByCategory { get; set; }
     }
 }

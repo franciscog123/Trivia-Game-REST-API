@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TriviaGame.DataAccess\TriviaGame.DataAccess.csproj" />
+    <ProjectReference Include="..\TriviaGame.Library\TriviaGame.Library.csproj" />
   </ItemGroup>
 
 </Project>

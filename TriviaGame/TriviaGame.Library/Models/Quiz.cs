@@ -24,7 +24,10 @@ namespace TriviaGame.Library.Models
             }
         }
         public DateTime Time { get; set; }
-        public List<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
+        public List<Question> Questions { get; set; } = new List<Question>();
+        public Category Category { get; set; }
+        public GameMode GameMode { get; set; }
+        public User User { get; set; }
         
     }
 }
