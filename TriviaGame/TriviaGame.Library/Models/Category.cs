@@ -17,6 +17,7 @@ namespace TriviaGame.Library.Models
                 {
                     throw new ArgumentException("Category must not be empty.", nameof(value));
                 }
+                _categoryString = value;
             }
         }
         public List<Question> QuestionsByCategory { get; set; } = new List<Question>();
