@@ -4,5 +4,6 @@ namespace TriviaGame.Library
 {
     public class User
     {
+        //test
     }
 }
