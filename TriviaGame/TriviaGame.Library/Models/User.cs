@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TriviaGame.Library.Models
 {
@@ -7,8 +8,8 @@ namespace TriviaGame.Library.Models
     {
         private string _userName;
         private string _email;
-
         public int UserId { get; set; }
+        [Required]
         public string UserName
         {
             get => _userName;
@@ -25,6 +26,7 @@ namespace TriviaGame.Library.Models
                 _userName = value;
             }
         }
+        [Required]
         public string Email
         {
             get => _email;
