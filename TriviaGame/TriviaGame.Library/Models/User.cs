@@ -8,8 +8,8 @@ namespace TriviaGame.Library.Models
     {
         private string _userName;
         private string _email;
+
         public int UserId { get; set; }
-        [Required]
         public string UserName
         {
             get => _userName;
@@ -26,7 +26,6 @@ namespace TriviaGame.Library.Models
                 _userName = value;
             }
         }
-        [Required]
         public string Email
         {
             get => _email;
@@ -39,7 +38,7 @@ namespace TriviaGame.Library.Models
                 _email = value;
             }
         }
-        public int CompletedQuizzes { get; set; }
+        public int? CompletedQuizzes { get; set; }
         public List<Quiz> Quizzes { get; set; }
     }
 }

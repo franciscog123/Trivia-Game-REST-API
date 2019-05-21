@@ -12,7 +12,10 @@ namespace TriviaGame.Library.Models
         public int GameModeId { get; set; }
         public int Score { get; set; }
         public DateTime Time { get; set; }
-        public List<QuizQuestion> QuizQuestions { get; set; }
+        public Category Category { get; set; }
+        public GameMode GameMode { get; set; }
+        public User User { get; set; }
+        public List<QuizQuestion> Questions { get; set; }
         
     }
 }
