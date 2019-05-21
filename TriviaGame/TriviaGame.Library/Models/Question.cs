@@ -11,7 +11,6 @@ namespace TriviaGame.Library.Models
         public string QuestionString { get; set; }
         public int Value { get; set; }
         public Category Category { get; set; }
-        public List<QuizQuestion> QuizQuestions { get; set; }
         public List<Choice> QuestionChoices { get; set; }
     }
 }

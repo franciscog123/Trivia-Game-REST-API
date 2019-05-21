@@ -9,5 +9,6 @@ namespace TriviaGame.Library.Models
         public int CategoryId { get; set; }
         public string CategoryString { get; set; }
         public List<Question> QuestionsByCategory { get; set; }
+        public List<Quiz> QuizzesByCategory { get; set; }
     }
 }
