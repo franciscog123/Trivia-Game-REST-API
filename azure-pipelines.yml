@@ -22,16 +22,27 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'Project2-TriviaGame-RestApi'
     projectName: 'Project2-TriviaGame-RestApi'
+    extraProperties:
+            sonar.cs.opencover.reportsPaths="$(Build.ArtifactStagingDirectory)/coverage/*"
 
 - script: dotnet build --configuration $(buildConfiguration) $(solutionPath)
   displayName: 'dotnet build $(buildConfiguration) $(solutionPath)'
 
 # do this after other tasks such as building
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: test
+#    projects: '**/*Tests/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
+
+- script: dotnet test
+    --configuration $(buildConfiguration)
+    /p:CollectCoverage=true
+    /p:CoverletOutputFormat=opencover
+    /p:CoverletOutput='$(Build.ArtifactStagingDirectory)/coverage/'
+    /p:Exclude="[xunit*]*"
+  workingDirectory: $(solutionPath)
+  displayName: 'dotnet test $(buildConfiguration)'
 
 - task: SonarCloudAnalyze@1
   inputs: {}
