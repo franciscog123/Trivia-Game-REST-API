@@ -14,7 +14,7 @@ namespace TriviaGame.DataAccess.Repositories
     /// <summary>
     /// A repository managing data access for Quiz objects and their members using Entity Framework.
     /// </summary>
-    public class QuizRepository:IQuizRepository
+    public class QuizRepository : IQuizRepository
     {
         private readonly TriviaGameDbContext _dbContext;
         private readonly ILogger<QuizRepository> _logger;
@@ -35,7 +35,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="search"></param>
         /// <returns>The collection of quizzes</returns>
-        public IEnumerable<Library.Models.Quiz> GetQuizzes(string search =null)
+        public IEnumerable<Library.Models.Quiz> GetQuizzes(string search = null)
         {
             try
             {
@@ -44,13 +44,12 @@ namespace TriviaGame.DataAccess.Repositories
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
-                return emptyQuizzes;
+                return returnEmptyQuizzes();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                return returnEmptyQuizzes();
             }
         }
 
@@ -70,7 +69,7 @@ namespace TriviaGame.DataAccess.Repositories
                 _logger.LogError(ex.ToString());
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
                 return null;
@@ -119,16 +118,15 @@ namespace TriviaGame.DataAccess.Repositories
             {
                 return Mapper.Map(_dbContext.Quiz.Where(q => q.GameModeId == gameModeId));
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
-                return emptyQuizzes;
+                return returnEmptyQuizzes();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                return returnEmptyQuizzes();
             }
         }
 
@@ -146,13 +144,12 @@ namespace TriviaGame.DataAccess.Repositories
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
-                return emptyQuizzes;
+                return returnEmptyQuizzes();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                return returnEmptyQuizzes();
             }
         }
 
@@ -170,13 +167,12 @@ namespace TriviaGame.DataAccess.Repositories
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
-                return emptyQuizzes;
+                return returnEmptyQuizzes();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                return returnEmptyQuizzes();
             }
         }
 
@@ -190,16 +186,25 @@ namespace TriviaGame.DataAccess.Repositories
             {
                 return _dbContext.Quiz.OrderByDescending(x => x.QuizId).First().QuizId;
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
                 return 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
                 return 0;
             }
         }
+
+        //Created a method to return an empty quiz collection so I don't have to repeat myself
+        //in above methods in catch blocks. Done to fix code smell by returning empty collection 
+        //instead of null.
+        public IEnumerable<Library.Models.Quiz> returnEmptyQuizzes()
+            {
+                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
+                return emptyQuizzes;
+            }
     }
 }
