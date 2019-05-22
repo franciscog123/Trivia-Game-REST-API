@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TriviaGame.Library.Models
 {
-    class QuizQuestion
+    public class QuizQuestion
     {
         public int QuizQuestionId { get; set; }
         public int QuizId { get; set; }
