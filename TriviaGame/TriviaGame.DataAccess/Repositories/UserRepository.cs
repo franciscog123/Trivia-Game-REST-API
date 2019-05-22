@@ -16,7 +16,7 @@ namespace TriviaGame.DataAccess.Repositories
     /// <remarks>
     /// This class ought to have better exception handling and logging.
     /// </remarks>
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly TriviaGameDbContext _dbContext;
         private readonly ILogger<UserRepository> _logger;
