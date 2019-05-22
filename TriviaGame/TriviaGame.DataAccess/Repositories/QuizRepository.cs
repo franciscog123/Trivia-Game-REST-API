@@ -44,7 +44,8 @@ namespace TriviaGame.DataAccess.Repositories
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
+                return emptyQuizzes;
             }
             catch(Exception ex)
             {
@@ -121,7 +122,8 @@ namespace TriviaGame.DataAccess.Repositories
             catch(SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
+                return emptyQuizzes;
             }
             catch(Exception ex)
             {
@@ -144,7 +146,8 @@ namespace TriviaGame.DataAccess.Repositories
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
+                return emptyQuizzes;
             }
             catch (Exception ex)
             {
@@ -167,7 +170,8 @@ namespace TriviaGame.DataAccess.Repositories
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
-                return null;
+                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
+                return emptyQuizzes;
             }
             catch (Exception ex)
             {
