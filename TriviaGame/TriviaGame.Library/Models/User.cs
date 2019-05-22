@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TriviaGame.Library.Models
 {
+    /// <summary>
+    /// A User object. Has an ID, username, email, and list of completed quizzes
+    /// </summary>
     public class User
     {
         private string _userName;
