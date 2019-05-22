@@ -37,6 +37,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// If string search is included, it will filter results by UserNames containing "search"
         /// </summary>
         /// <param name="search">The string to filter Users by</param>
+        /// <returns>IEnumerable<Library.Models.User></returns>
         public IEnumerable<Library.Models.User> GetUsers(string search = null)
         {
             IQueryable<User> items = _dbContext.User
@@ -57,7 +58,7 @@ namespace TriviaGame.DataAccess.Repositories
             Mapper.Map(_dbContext.User.Include(q => q.Quiz).AsNoTracking().First(u => u.UserId == id));
 
         /// <summary>
-        /// Adds a new User into the database
+        /// Adds a new User into the database and updates the log
         /// </summary>
         /// <param name="user">The Library model of the User to be added</param>
         public void AddUser(Library.Models.User user)
@@ -75,7 +76,7 @@ namespace TriviaGame.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Removes a User from the database with a specific ID
+        /// Removes a User from the database with a specific ID and updatest the log
         /// </summary>
         /// <param name="id">ID of the User to be deleted</param>
         public void DeleteUser(int id)
