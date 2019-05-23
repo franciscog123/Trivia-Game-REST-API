@@ -33,8 +33,8 @@ namespace TriviaGame.Library.Models
             get => _email;
             set
             {
-                var addr = new System.Net.Mail.MailAddress(value);
-                if(!(addr.Address == value))
+
+                if(value.Contains("@") != true || value.Substring(value.Length - 4).StartsWith(".") != true)
                 {
                     throw new ArgumentException("Not a valid email address", nameof(value));
                 }
