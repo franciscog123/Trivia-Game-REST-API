@@ -12,7 +12,7 @@ namespace TriviaGame.DataAccess
             UserName = user.UserName,
             Email = user.Email,
             CompletedQuizzes = user.CompletedQuizzes,
-            Quizzes = Map(user.Quiz).ToList()
+            //Quizzes = Map(user.Quiz).ToList()
         };
 
         public static Entities.User Map(Library.Models.User user) => new Entities.User
@@ -21,7 +21,7 @@ namespace TriviaGame.DataAccess
             UserName = user.UserName,
             Email = user.Email,
             CompletedQuizzes = user.CompletedQuizzes,
-            Quiz = Map(user.Quizzes).ToList()
+            //Quiz = Map(user.Quizzes).ToList()
         };
 
         public static Library.Models.Quiz Map(Entities.Quiz quiz) => new Library.Models.Quiz
@@ -32,10 +32,10 @@ namespace TriviaGame.DataAccess
             GameModeId = quiz.GameModeId,
             Score = quiz.Score,
             Time = quiz.Time,
-            Category = Map(quiz.Category),
-            GameMode = Map(quiz.GameMode),
-            User = Map(quiz.User),
-            Questions = Map(quiz.QuizQuestion).ToList()
+            //Category = Map(quiz.Category),
+            //GameMode = Map(quiz.GameMode),
+           // User = Map(quiz.User),
+            //Questions = Map(quiz.QuizQuestion).ToList()
         };
 
         public static Entities.Quiz Map(Library.Models.Quiz quiz) => new Entities.Quiz
@@ -46,9 +46,9 @@ namespace TriviaGame.DataAccess
             GameModeId = quiz.GameModeId,
             Score = quiz.Score,
             Time = quiz.Time,
-            Category = Map(quiz.Category),
-            GameMode = Map(quiz.GameMode),
-            User = Map(quiz.User),
+            //Category = Map(quiz.Category),
+            //GameMode = Map(quiz.GameMode),
+           // User = Map(quiz.User)
         };
 
         public static Library.Models.Question Map(Entities.QuizQuestion quizQuestion) =>

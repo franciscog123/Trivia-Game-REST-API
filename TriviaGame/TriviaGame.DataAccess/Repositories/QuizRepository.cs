@@ -35,7 +35,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="search"></param>
         /// <returns>The collection of quizzes</returns>
-        public IEnumerable<Library.Models.Quiz> GetQuizzes(string search = null)
+        public IEnumerable<Library.Models.Quiz> GetQuizzes()
         {
             try
             {
@@ -104,6 +104,7 @@ namespace TriviaGame.DataAccess.Repositories
             _logger.LogInformation($"Deleting Quiz with ID {id}");
             Entities.Quiz quiz = _dbContext.Quiz.Find(id);
             _dbContext.Remove(quiz);
+            _dbContext.SaveChanges();
         }
 
 

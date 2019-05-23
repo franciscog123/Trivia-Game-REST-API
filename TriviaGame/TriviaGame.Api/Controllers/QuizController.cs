@@ -5,47 +5,48 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TriviaGame.Library.Interfaces;
-using TriviaGame.Library;
 using TriviaGame.Library.Models;
 
 namespace TriviaGame.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class QuizController : ControllerBase
     {
+
         public IUserRepository UserRepo { get; set; }
         public IQuizRepository QuizRepo { get; set; }
 
-        public UserController(IUserRepository userRepo, IQuizRepository quizRepo)
+        public QuizController(IUserRepository userRepo, IQuizRepository quizRepo)
         {
             UserRepo = userRepo;
             QuizRepo = quizRepo;
         }
 
-        // GET: api/User
+        // GET: api/Quiz
         [HttpGet]
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<Quiz> GetQuizzes()
         {
-            var result= UserRepo.GetUsers();
-            return result;
+            var quizzes = QuizRepo.GetQuizzes();
+            return quizzes;
             //return new string[] { "value1", "value2" };
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "GetUserById")]
-        public string GetUserById(int id)
+        // GET: api/Quiz/5
+        [HttpGet("{id}", Name = "GetQuizById")]
+        public Quiz GetQuizById(int id)
         {
-            return "value";
+            return QuizRepo.GetQuizById(id);
+            //return "value";
         }
 
-        // POST: api/User
+        // POST: api/Quiz
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/User/5
+        // PUT: api/Quiz/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
