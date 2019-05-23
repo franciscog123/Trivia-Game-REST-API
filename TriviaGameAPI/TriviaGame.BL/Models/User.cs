@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TriviaGame.Library.Models
+namespace TriviaGame.BL.Models
 {
     /// <summary>
     /// A User object. Has an ID, username, email, and list of completed quizzes
@@ -33,8 +33,7 @@ namespace TriviaGame.Library.Models
             get => _email;
             set
             {
-
-                if(value.Contains("@") != true || value.Substring(value.Length - 4).StartsWith(".") != true)
+                if(value.Contains("@") != true || value.Substring(value.Length - 5).StartsWith(".") != true)
                 {
                     throw new ArgumentException("Not a valid email address", nameof(value));
                 }

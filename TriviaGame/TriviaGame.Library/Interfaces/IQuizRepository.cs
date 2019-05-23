@@ -7,7 +7,7 @@ namespace TriviaGame.Library.Interfaces
 {
     public interface IQuizRepository
     {
-        IEnumerable<Quiz> GetQuizzes(string search = null);
+        IEnumerable<Quiz> GetQuizzes();
         Quiz GetQuizById(int id);
         void AddQuiz(Quiz quiz);
         void DeleteQuiz(int id);

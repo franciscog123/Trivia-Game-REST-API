@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TriviaGame.Library.Models;
-using TriviaGame.DataAccess.Entities;
-using TriviaGame.Library.Interfaces;
+using TriviaGame.BL.Models;
+using TriviaGame.DA.Entities;
+using TriviaGame.BL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace TriviaGame.DataAccess.Repositories
+namespace TriviaGame.DA.Repositories
 {
     /// <summary>
     /// A repository managing data access for Quiz objects and their members using Entity Framework.
@@ -35,7 +35,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="search"></param>
         /// <returns>The collection of quizzes</returns>
-        public IEnumerable<Library.Models.Quiz> GetQuizzes()
+        public IEnumerable<BL.Models.Quiz> GetQuizzes(string search = null)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="id">The quiz</param>
         /// <returns></returns>
-        public Library.Models.Quiz GetQuizById(int id)
+        public BL.Models.Quiz GetQuizById(int id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// Add a quiz, including any associated objects. Updates log.
         /// </summary>
         /// <param name="quiz">The quiz</param>
-        public void AddQuiz(Library.Models.Quiz quiz)
+        public void AddQuiz(BL.Models.Quiz quiz)
         {
             if (quiz.QuizId != 0)
             {
@@ -104,7 +104,6 @@ namespace TriviaGame.DataAccess.Repositories
             _logger.LogInformation($"Deleting Quiz with ID {id}");
             Entities.Quiz quiz = _dbContext.Quiz.Find(id);
             _dbContext.Remove(quiz);
-            _dbContext.SaveChanges();
         }
 
 
@@ -113,7 +112,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="gameModeId"></param>
         /// <returns>The collection of quizzes</returns>
-        public IEnumerable<Library.Models.Quiz> GetQuizzesByGameModeId(int gameModeId)
+        public IEnumerable<BL.Models.Quiz> GetQuizzesByGameModeId(int gameModeId)
         {
             try
             {
@@ -136,7 +135,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>The collection of quizzes</returns>
-        public IEnumerable<Library.Models.Quiz> GetQuizzesByUserId(int userId)
+        public IEnumerable<BL.Models.Quiz> GetQuizzesByUserId(int userId)
         {
             try
             {
@@ -159,7 +158,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="catId"></param>
         /// <returns>The collection of quizzes</returns>
-        public IEnumerable<Library.Models.Quiz> GetQuizzesByCategoryId(int catId)
+        public IEnumerable<BL.Models.Quiz> GetQuizzesByCategoryId(int catId)
         {
             try
             {
@@ -202,9 +201,9 @@ namespace TriviaGame.DataAccess.Repositories
         //Created a method to return an empty quiz collection so I don't have to repeat myself
         //in above methods in catch blocks. Done to fix code smell by returning empty collection 
         //instead of null.
-        public IEnumerable<Library.Models.Quiz> returnEmptyQuizzes()
+        public IEnumerable<BL.Models.Quiz> returnEmptyQuizzes()
             {
-                var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
+                var emptyQuizzes = Enumerable.Empty<BL.Models.Quiz>();
                 return emptyQuizzes;
             }
     }
