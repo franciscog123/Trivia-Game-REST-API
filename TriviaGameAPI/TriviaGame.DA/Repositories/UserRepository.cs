@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TriviaGame.DataAccess.Entities;
-using TriviaGame.Library.Interfaces;
+using TriviaGame.DA.Entities;
+using TriviaGame.BL.Interfaces;
 
-namespace TriviaGame.DataAccess.Repositories
+namespace TriviaGame.DA.Repositories
 {
     /// <summary>
     /// A repository managing data access for User objects and their Quiz members,
@@ -16,7 +16,7 @@ namespace TriviaGame.DataAccess.Repositories
     /// <remarks>
     /// This class ought to have better exception handling and logging.
     /// </remarks>
-    public class UserRepository : IUserRepository
+    class UserRepository : IUserRepository
     {
         private readonly TriviaGameDbContext _dbContext;
         private readonly ILogger<UserRepository> _logger;
@@ -38,17 +38,11 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="search">The string to filter Users by</param>
         /// <returns>IEnumerable<Library.Models.User></returns>
-        public IEnumerable<Library.Models.User> GetUsers(string search = null)
+        public IEnumerable<BL.Models.User> GetUsers(string search = null)
         {
             IQueryable<User> items = _dbContext.User
-                .Include(q => q.Quiz)
-                    .ThenInclude(qq => qq.QuizQuestion)
-                        .ThenInclude(q => q.Question);
-                //.Include(q => q.Quiz)
-                //    .ThenInclude(g => g.GameMode)
-                //.Include(q => q.Quiz)
-                //    .ThenInclude(c => c.Category);
-            if (search != null)
+                .Include(q => q.Quiz);
+            if(search != null)
             {
                 items = items.Where(u => u.UserName.Contains(search));
             }
@@ -60,14 +54,14 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="id">The ID of the User to be returned</param>
         /// <returns>Library.Models.User</returns>
-        public Library.Models.User GetUserById(int id) =>
+        public BL.Models.User GetUserById(int id) =>
             Mapper.Map(_dbContext.User.Include(q => q.Quiz).AsNoTracking().First(u => u.UserId == id));
 
         /// <summary>
         /// Adds a new User into the database and updates the log
         /// </summary>
         /// <param name="user">The Library model of the User to be added</param>
-        public void AddUser(Library.Models.User user)
+        public void AddUser(BL.Models.User user)
         {
             if(user.UserId != 0)
             {

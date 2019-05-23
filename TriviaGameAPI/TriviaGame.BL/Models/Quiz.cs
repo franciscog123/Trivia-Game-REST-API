@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TriviaGame.Library.Models
+namespace TriviaGame.BL.Models
 {
     public class Quiz
     {
@@ -26,6 +26,8 @@ namespace TriviaGame.Library.Models
         public DateTime Time { get; set; }
         public List<Question> Questions { get; set; } = new List<Question>();
         public Category Category { get; set; }
-        public GameMode GameMode { get; set; }        
+        public GameMode GameMode { get; set; }
+        public User User { get; set; }
+        
     }
 }
