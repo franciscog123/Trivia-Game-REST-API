@@ -8,6 +8,5 @@ namespace TriviaGame.Library.Models
     {
         public int GameModeId { get; set; }
         public string GameModeString { get; set; }
-        public List<Quiz> QuizzesByGameMode { get; set; }
     }
 }

@@ -10,6 +10,5 @@ namespace TriviaGame.Library.Models
         public int QuestionId { get; set; }
         public bool? Correct { get; set; }
         public string ChoiceString { get; set; }
-        public Question Question { get; set; }
     }
 }

@@ -42,12 +42,13 @@ namespace TriviaGame.DataAccess.Repositories
         {
             IQueryable<User> items = _dbContext.User
                 .Include(q => q.Quiz)
+                    .ThenInclude(g => g.GameMode)
+                .Include(q => q.Quiz)
                     .ThenInclude(qq => qq.QuizQuestion)
-                        .ThenInclude(q => q.Question);
-                //.Include(q => q.Quiz)
-                //    .ThenInclude(g => g.GameMode)
-                //.Include(q => q.Quiz)
-                //    .ThenInclude(c => c.Category);
+                        .ThenInclude(q => q.Question)
+                            .ThenInclude(c => c.Choice)
+                .Include(q => q.Quiz)
+                    .ThenInclude(c => c.Category);
             if (search != null)
             {
                 items = items.Where(u => u.UserName.Contains(search));
