@@ -39,7 +39,13 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                return Mapper.Map(_dbContext.Quiz);
+                var items = _dbContext.Quiz
+                   .Include(qq => qq.QuizQuestion)
+                       .ThenInclude(q => q.Question)
+                           .ThenInclude(c => c.Choice)
+                   .Include(g => g.GameMode)
+                   .Include(c => c.Category);
+                return Mapper.Map(items);
             }
             catch (SqlException ex)
             {

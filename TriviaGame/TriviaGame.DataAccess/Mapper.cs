@@ -12,7 +12,7 @@ namespace TriviaGame.DataAccess
             UserName = user.UserName,
             Email = user.Email,
             CompletedQuizzes = user.CompletedQuizzes,
-            Quizzes = Map(user.Quiz).ToList()
+            //Quizzes = Map(user.Quiz).ToList()
         };
 
         public static Entities.User Map(Library.Models.User user) => new Entities.User
