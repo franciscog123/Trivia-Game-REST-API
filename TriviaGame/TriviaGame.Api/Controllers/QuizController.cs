@@ -32,12 +32,48 @@ namespace TriviaGame.Api.Controllers
             //return new string[] { "value1", "value2" };
         }
 
+        //GET: api/quiz/getquizzesbygamemode/1
+       [HttpGet]
+       [Route("GetQuizzesByGameMode/{id}")]
+       public IEnumerable<Quiz> GetQuizzesByGameMode(int id)
+        {
+            var quizzes = QuizRepo.GetQuizzesByGameModeId(id);
+            return quizzes;
+        }
+
         // GET: api/Quiz/5
         [HttpGet("{id}", Name = "GetQuizById")]
         public Quiz GetQuizById(int id)
         {
             return QuizRepo.GetQuizById(id);
             //return "value";
+        }
+
+        // GET: api/Quiz/5
+        [HttpGet]
+        [Route("GetLastQuizId")]
+        public int GetLastQuizId()
+        {
+            return QuizRepo.GetLastQuizId();
+            //return "value";
+        }
+
+        //GET: api/quiz/getquizzesbyuser/1
+        [HttpGet]
+        [Route("GetQuizzesByUser/{id}")]
+        public IEnumerable<Quiz> GetQuizzesByUserId(int id)
+        {
+            var quizzes = QuizRepo.GetQuizzesByUserId(id);
+            return quizzes;
+        }
+
+        //GET: api/quiz/getquizzesbyuser/1
+        [HttpGet]
+        [Route("GetQuizzesByCategory/{id}")]
+        public IEnumerable<Quiz> GetQuizzesByCategoryId(int id)
+        {
+            var quizzes = QuizRepo.GetQuizzesByCategoryId(id);
+            return quizzes;
         }
 
         // POST: api/Quiz

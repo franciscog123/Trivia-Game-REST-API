@@ -34,9 +34,10 @@ namespace TriviaGame.Api.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "GetUserById")]
-        public string GetUserById(int id)
+        public User GetUserById(int id)
         {
-            return "value";
+            var result = UserRepo.GetUserById(id);
+            return result;
         }
 
         // POST: api/User

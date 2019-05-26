@@ -68,7 +68,14 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                return Mapper.Map(_dbContext.Quiz.Find(id));
+                var items = _dbContext.Quiz
+                   .Include(qq => qq.QuizQuestion)
+                       .ThenInclude(q => q.Question)
+                           .ThenInclude(c => c.Choice)
+                   .Include(g => g.GameMode)
+                   .Include(c => c.Category);
+                //Mapper.Map(_dbContext.User.Include(q => q.Quiz).AsNoTracking().First(u => u.UserId == id));
+                return Mapper.Map(items.First(q=>q.QuizId==id));
             }
             catch (SqlException ex)
             {
@@ -123,7 +130,13 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                return Mapper.Map(_dbContext.Quiz.Where(q => q.GameModeId == gameModeId));
+                var items = _dbContext.Quiz
+                   .Include(qq => qq.QuizQuestion)
+                       .ThenInclude(q => q.Question)
+                           .ThenInclude(c => c.Choice)
+                   .Include(g => g.GameMode)
+                   .Include(c => c.Category);
+                return Mapper.Map(items.Where(q => q.GameModeId == gameModeId));
             }
             catch (SqlException ex)
             {
@@ -146,7 +159,13 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                return Mapper.Map(_dbContext.Quiz.Where(q => q.UserId == userId));
+                var items = _dbContext.Quiz
+                   .Include(qq => qq.QuizQuestion)
+                       .ThenInclude(q => q.Question)
+                           .ThenInclude(c => c.Choice)
+                   .Include(g => g.GameMode)
+                   .Include(c => c.Category);
+                return Mapper.Map(items.Where(q => q.UserId == userId));
             }
             catch (SqlException ex)
             {
@@ -169,7 +188,13 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                return Mapper.Map(_dbContext.Quiz.Where(q => q.CategoryId == catId));
+                var items = _dbContext.Quiz
+                   .Include(qq => qq.QuizQuestion)
+                       .ThenInclude(q => q.Question)
+                           .ThenInclude(c => c.Choice)
+                   .Include(g => g.GameMode)
+                   .Include(c => c.Category);
+                return Mapper.Map(items.Where(q => q.CategoryId == catId));
             }
             catch (SqlException ex)
             {
@@ -190,7 +215,7 @@ namespace TriviaGame.DataAccess.Repositories
         public int GetLastQuizId()
         {
             try
-            {
+            { 
                 return _dbContext.Quiz.OrderByDescending(x => x.QuizId).First().QuizId;
             }
             catch (SqlException ex)
