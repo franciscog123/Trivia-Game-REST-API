@@ -25,10 +25,16 @@ namespace TriviaGame.Api.Controllers
 
         // GET: api/User
         [HttpGet]
-        public IEnumerable<User> GetUsers()
-        {
-            var result= UserRepo.GetUsers();
-            return result;
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        { 
+            var users= await UserRepo.GetUsers();
+            //return result;
+            if (users == null)
+            {
+                return NotFound();
+            }
+            return Ok(users);
+
             //return new string[] { "value1", "value2" };
         }
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TriviaGame.DataAccess.Entities;
 using TriviaGame.Library.Interfaces;
 
@@ -38,22 +39,31 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="search">The string to filter Users by</param>
         /// <returns>IEnumerable<Library.Models.User></returns>
-        public IEnumerable<Library.Models.User> GetUsers(string search = null)
+        public async Task<IEnumerable<Library.Models.User>> GetUsers(string search = null)
         {
-            IQueryable<User> items = _dbContext.User
-                .Include(q => q.Quiz)
-                    .ThenInclude(g => g.GameMode)
-                .Include(q => q.Quiz)
-                    .ThenInclude(qq => qq.QuizQuestion)
-                        .ThenInclude(q => q.Question)
-                            .ThenInclude(c => c.Choice)
-                .Include(q => q.Quiz)
-                    .ThenInclude(c => c.Category);
-            if (search != null)
+            try
             {
-                items = items.Where(u => u.UserName.Contains(search));
+                IQueryable<User> items = _dbContext.User
+              .Include(q => q.Quiz)
+                  .ThenInclude(g => g.GameMode)
+              .Include(q => q.Quiz)
+                  .ThenInclude(qq => qq.QuizQuestion)
+                      .ThenInclude(q => q.Question)
+                          .ThenInclude(c => c.Choice)
+              .Include(q => q.Quiz)
+                  .ThenInclude(c => c.Category);
+                if (search != null)
+                {
+                    items = items.Where(u => u.UserName.Contains(search));
+                }
+                return await Task.FromResult(Mapper.Map(items.AsNoTracking()));
             }
-            return Mapper.Map(items);
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+          
         }
 
         /// <summary>
