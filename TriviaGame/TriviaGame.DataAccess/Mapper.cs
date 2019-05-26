@@ -12,7 +12,7 @@ namespace TriviaGame.DataAccess
             UserName = user.UserName,
             Email = user.Email,
             CompletedQuizzes = user.CompletedQuizzes,
-            Quizzes = Map(user.Quiz).ToList()
+            //Quizzes = Map(user.Quiz).ToList()
         };
 
         public static Entities.User Map(Library.Models.User user) => new Entities.User
@@ -32,8 +32,8 @@ namespace TriviaGame.DataAccess
             GameModeId = quiz.GameModeId,
             Score = quiz.Score,
             Time = quiz.Time,
-            //Category = Map(quiz.Category),
-            //GameMode = Map(quiz.GameMode),
+            Category = Map(quiz.Category),
+            GameMode = Map(quiz.GameMode),
             Questions = Map(quiz.QuizQuestion).ToList()
         };
 
@@ -47,7 +47,7 @@ namespace TriviaGame.DataAccess
             Time = quiz.Time,
             //Category = Map(quiz.Category),
             //GameMode = Map(quiz.GameMode),
-           // User = Map(quiz.User)
+            //User = Map(quiz.User)
         };
 
         public static Library.Models.Question Map(Entities.QuizQuestion quizQuestion) =>
@@ -59,8 +59,8 @@ namespace TriviaGame.DataAccess
             CategoryId = question.CategoryId,
             QuestionString = question.Question1,
             Value = question.Value,
-            //Category = Map(question.Category),
-            //QuestionChoices = Map(question.Choice).ToList()
+            Category = Map(question.Category),
+            QuestionChoices = Map(question.Choice).ToList()
         };
 
         public static Entities.Question Map(Library.Models.Question question) => new Entities.Question
@@ -81,7 +81,6 @@ namespace TriviaGame.DataAccess
             QuestionId = choice.QuestionId,
             Correct = choice.Correct,
             ChoiceString = choice.Choice1,
-            Question = Map(choice.Question)
         };
 
         public static Entities.Choice Map(Library.Models.Choice choice) => new Entities.Choice
@@ -90,37 +89,30 @@ namespace TriviaGame.DataAccess
             QuestionId = choice.QuestionId,
             Correct = choice.Correct,
             Choice1 = choice.ChoiceString,
-            Question = Map(choice.Question)
         };
 
         public static Library.Models.Category Map(Entities.Category category) => new Library.Models.Category
         {
             CategoryId = category.CategoryId,
             CategoryString = category.Category1,
-            QuestionsByCategory = Map(category.Question).ToList(),
-            QuizzesByCategory = Map(category.Quiz).ToList()
         };
 
         public static Entities.Category Map(Library.Models.Category category) => new Entities.Category
         {
             CategoryId = category.CategoryId,
             Category1 = category.CategoryString,
-            Question = Map(category.QuestionsByCategory).ToList(),
-            Quiz = Map(category.QuizzesByCategory).ToList()
         };
 
         public static Library.Models.GameMode Map(Entities.GameMode gameMode) => new Library.Models.GameMode
         {
             GameModeId = gameMode.GameModeId,
             GameModeString = gameMode.GameMode1,
-            QuizzesByGameMode = Map(gameMode.Quiz).ToList()
         };
 
         public static Entities.GameMode Map(Library.Models.GameMode gameMode) => new Entities.GameMode
         {
             GameModeId = gameMode.GameModeId,
             GameMode1 = gameMode.GameModeString,
-            Quiz = Map(gameMode.QuizzesByGameMode).ToList()
         };
 
         public static IEnumerable<Library.Models.User> Map(IEnumerable<Entities.User> users) =>
