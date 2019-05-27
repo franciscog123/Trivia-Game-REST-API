@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TriviaGame.DataAccess.Repositories
 {
@@ -227,6 +228,26 @@ namespace TriviaGame.DataAccess.Repositories
             {
                 _logger.LogError(ex.ToString());
                 return 0;
+            }
+        }
+
+        public async Task<int> CalcTotalScoreByUser(int userId)
+        {
+            try
+            {
+                var userQuizzes = GetQuizzesByUserId(userId);
+                int total = 0;
+                foreach (var Quiz in userQuizzes)
+                {
+                    total += Quiz.Score;
+                }
+
+                return await Task.FromResult(total);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogWarning(ex.ToString());
+                return -1;
             }
         }
 

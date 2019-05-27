@@ -33,9 +33,9 @@ namespace TriviaGame.Api.Controllers
         }
 
         //GET: api/quiz/getquizzesbygamemode/1
-       [HttpGet]
-       [Route("GetQuizzesByGameMode/{id}")]
-       public IEnumerable<Quiz> GetQuizzesByGameMode(int id)
+        [HttpGet]
+        [Route("GetQuizzesByGameMode/{id}")]
+        public IEnumerable<Quiz> GetQuizzesByGameMode(int id)
         {
             var quizzes = QuizRepo.GetQuizzesByGameModeId(id);
             return quizzes;
@@ -74,6 +74,18 @@ namespace TriviaGame.Api.Controllers
         {
             var quizzes = QuizRepo.GetQuizzesByCategoryId(id);
             return quizzes;
+        }
+
+        [HttpGet]
+        [Route("CalcTotalScoreByUser/{id}")]
+        public async Task<ActionResult<int>> CalcTotalScoreByUser(int id)
+        {
+            var total = QuizRepo.CalcTotalScoreByUser(id);
+            if(await total>=0)
+            {
+                return Ok(total);
+            }
+            return NotFound();
         }
 
         // POST: api/Quiz
