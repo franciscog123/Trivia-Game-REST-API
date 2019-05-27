@@ -231,6 +231,7 @@ namespace TriviaGame.DataAccess.Repositories
             }
         }
 
+        //Todo: havent used this, might delete later
         public async Task<int> CalcTotalScoreByUser(int userId)
         {
             try

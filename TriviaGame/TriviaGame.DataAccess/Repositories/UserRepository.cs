@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TriviaGame.DataAccess.Entities;
 using TriviaGame.Library.Interfaces;
+using TriviaGame.Library.Models;
 
 namespace TriviaGame.DataAccess.Repositories
 {
@@ -43,7 +44,7 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                IQueryable<User> items = _dbContext.User
+                IQueryable<DataAccess.Entities.User> items = _dbContext.User
               .Include(q => q.Quiz)
                   .ThenInclude(g => g.GameMode)
               .Include(q => q.Quiz)
@@ -66,6 +67,26 @@ namespace TriviaGame.DataAccess.Repositories
           
         }
 
+        //copy of GetUsers method above that doesn't use async, 
+        //because cant expose enumerators when using task data type to use in GetAllScoreboards method below
+        public IEnumerable<Library.Models.User> OtherGetAllUsers(string search =null)
+        {
+            IQueryable<DataAccess.Entities.User> items = _dbContext.User
+              .Include(q => q.Quiz)
+                  .ThenInclude(g => g.GameMode)
+              .Include(q => q.Quiz)
+                  .ThenInclude(qq => qq.QuizQuestion)
+                      .ThenInclude(q => q.Question)
+                          .ThenInclude(c => c.Choice)
+              .Include(q => q.Quiz)
+                  .ThenInclude(c => c.Category);
+            if (search != null)
+            {
+                items = items.Where(u => u.UserName.Contains(search));
+            }
+            return (Mapper.Map(items.AsNoTracking()));
+        }
+
         /// <summary>
         /// Gets a User object from the database with a specific ID
         /// </summary>
@@ -86,10 +107,59 @@ namespace TriviaGame.DataAccess.Repositories
             }
             _logger.LogInformation($"Adding user {user.UserName}");
 
-            User entity = Mapper.Map(user);
+            DataAccess.Entities.User entity = Mapper.Map(user);
             entity.UserId = 0;
             _dbContext.Add(entity);
             _dbContext.SaveChanges();
+        }
+
+        //calculates total score for a single user
+        public int CalcTotalScoresByUser(int userId)
+        {
+            try
+            {
+                var items = _dbContext.Quiz
+                       .Include(qq => qq.QuizQuestion)
+                           .ThenInclude(q => q.Question)
+                               .ThenInclude(c => c.Choice)
+                       .Include(g => g.GameMode)
+                       .Include(c => c.Category);
+                var QuizzesByUser = Mapper.Map(items.Where(q => q.UserId == userId));
+
+                int total = 0;
+                foreach (var Quiz in QuizzesByUser)
+                {
+                    total += Quiz.Score;
+                }
+                return total;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return -1;
+            }
+        }
+
+        //calculates total score for all users and creates a new list of scoreboards
+        //sets totalscore and scoreboard class values in list of scoreboards
+        //creates a scoreboard object for each user and returns list of scoreboards 
+        //in descending order by totalscore
+        //its pretty hacky...but it works
+        public IEnumerable<ScoreBoard> GetAllScoreboards()
+        {
+            List<ScoreBoard> boardList = new List<ScoreBoard>();
+            ScoreBoard board = new ScoreBoard();
+            IEnumerable<Library.Models.User> users = OtherGetAllUsers();
+            foreach(var User in users)
+            {
+                boardList.Add(new ScoreBoard {
+                    UserId=User.UserId,
+                    UserName=User.UserName,
+                    CompletedQuizzes=User.CompletedQuizzes,
+                    TotalScore=CalcTotalScoresByUser(User.UserId)
+                });;
+            }
+            return boardList.OrderByDescending(t=>t.TotalScore).ToList();
         }
 
         /// <summary>
@@ -99,7 +169,7 @@ namespace TriviaGame.DataAccess.Repositories
         public void DeleteUser(int id)
         {
             _logger.LogInformation($"Deleting user with ID {id}");
-            User user = _dbContext.User.Find(id);
+            DataAccess.Entities.User user = _dbContext.User.Find(id);
             _dbContext.Remove(user);
         }
     }

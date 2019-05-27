@@ -76,6 +76,7 @@ namespace TriviaGame.Api.Controllers
             return quizzes;
         }
 
+        //Todo: haven't used this, might delete later
         [HttpGet]
         [Route("CalcTotalScoreByUser/{id}")]
         public async Task<ActionResult<int>> CalcTotalScoreByUser(int id)

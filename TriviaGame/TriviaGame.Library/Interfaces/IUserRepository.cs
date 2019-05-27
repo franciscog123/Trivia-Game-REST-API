@@ -12,5 +12,6 @@ namespace TriviaGame.Library.Interfaces
         User GetUserById(int id);
         void AddUser(User user);
         void DeleteUser(int id);
+        IEnumerable<ScoreBoard> GetAllScoreboards();
     }
 }

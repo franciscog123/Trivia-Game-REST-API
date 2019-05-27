@@ -37,6 +37,13 @@ namespace TriviaGame.Api.Controllers
 
             //return new string[] { "value1", "value2" };
         }
+        //GET: api/user/getscoreboards
+        [HttpGet]
+        [Route("GetScoreBoards")]
+        public IEnumerable<ScoreBoard> GetScoreBoards()
+        {
+            return UserRepo.GetAllScoreboards();
+        }
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "GetUserById")]

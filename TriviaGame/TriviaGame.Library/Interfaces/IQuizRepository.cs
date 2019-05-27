@@ -15,7 +15,7 @@ namespace TriviaGame.Library.Interfaces
         IEnumerable<Library.Models.Quiz> GetQuizzesByGameModeId(int gameModeId);
         IEnumerable<Library.Models.Quiz> GetQuizzesByUserId(int userId);
         IEnumerable<Library.Models.Quiz> GetQuizzesByCategoryId(int catId);
-        Task<int> CalcTotalScoreByUser(int userId);
+        Task<int> CalcTotalScoreByUser(int userId);//Todo:didn't use this, might delete later
         int GetLastQuizId();
     }
 }
