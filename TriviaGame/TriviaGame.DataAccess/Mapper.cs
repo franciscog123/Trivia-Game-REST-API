@@ -69,11 +69,9 @@ namespace TriviaGame.DataAccess
             CategoryId = question.CategoryId,
             Question1 = question.QuestionString,
             Value = question.Value,
-            Category = Map(question.Category),
-            Choice = Map(question.QuestionChoices).ToList()
+            //Category = Map(question.Category), francisco commented these out to be able to create new question without having to send category and choice objects
+            //Choice = Map(question.QuestionChoices).ToList() otherwise, kept getting null values
         };
-
-
 
         public static Library.Models.Choice Map(Entities.Choice choice) => new Library.Models.Choice
         {

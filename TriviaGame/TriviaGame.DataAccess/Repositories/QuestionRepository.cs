@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TriviaGame.DataAccess.Repositories
 {
@@ -22,12 +23,38 @@ namespace TriviaGame.DataAccess.Repositories
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public Library.Models.Question GetQuestionById(int questionId)
+        public async Task<IEnumerable<Library.Models.Question>> GetQuestions()
+        {
+            return await Task.FromResult(Mapper.Map(_dbContext.Question
+                .Include(qc => qc.Choice)
+                .Include(c => c.Category)));
+        }
+
+        public async Task<Library.Models.Question> GetQuestionById(int questionId)
         {
             try
             {
-                return Mapper.Map(_dbContext.Question.Find(questionId));
-            }
+                /*var items= Mapper.Map(_dbContext.Question
+                .Include(qc => qc.Choice)
+                .Include(c => c.Category).AsNoTracking());
+                return await Task.FromResult(items.First(q => q.QuestionId == questionId)); original getquestionbyid method
+                */
+                var items =  _dbContext.Question
+                 .Include(qc => qc.Choice)
+                 .Include(c => c.Category).AsNoTracking();
+
+                var entity = await items.FirstOrDefaultAsync(x=>x.QuestionId==questionId);
+
+                if (entity is null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return  Mapper.Map(entity);
+                }
+
+             }
             catch (SqlException ex)
             {
                 _logger.LogError(ex.ToString());
@@ -40,11 +67,14 @@ namespace TriviaGame.DataAccess.Repositories
             }
         }
 
-        public IEnumerable<Library.Models.Question> getQuestionsByCategoryId(int catId)
+        public IEnumerable<Library.Models.Question> GetQuestionsByCategoryId(int catId)
         {
             try
             {
-                return Mapper.Map(_dbContext.Question.Where(q => q.CategoryId == catId));
+                var items = Mapper.Map(_dbContext.Question
+                .Include(qc => qc.Choice)
+                .Include(c => c.Category).AsNoTracking());
+                return items.Where(q => q.CategoryId == catId);
             }
             catch (SqlException ex)
             {
@@ -58,19 +88,20 @@ namespace TriviaGame.DataAccess.Repositories
             }
         }
 
-        public void AddQuestion(Library.Models.Question question)
+        public async Task <int>CreateQuestion(Library.Models.Question question)
         {
-            if (question.QuestionId != 0)
+            if (question is null)
             {
-                _logger.LogWarning($"Question to be added has an ID ({question.QuestionId}) already: ignoring.");
+                throw new ArgumentNullException(nameof(question));
+                //_logger.LogWarning($"Question to be added has an ID ({question.QuestionId}) already: ignoring.");
             }
-
             _logger.LogInformation($"Adding question");
 
             Entities.Question entity = Mapper.Map(question);
-            entity.QuestionId = 0;
+            //entity.QuestionId = 0;
             _dbContext.Add(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+            return question.QuestionId;
         }
 
         public void DeleteQuestion(int id)
