@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TriviaGame.Library.Models;
 
 
@@ -8,9 +9,10 @@ namespace TriviaGame.Library.Interfaces
 {
     public interface IQuestionRepository
     {
-        Question GetQuestionById(int questionId);
-        IEnumerable<Library.Models.Question> getQuestionsByCategoryId(int catId);
-        void AddQuestion(Library.Models.Question question);
+        Task<IEnumerable<Library.Models.Question>> GetQuestions();
+        Task <Question> GetQuestionById(int questionId);
+        IEnumerable<Library.Models.Question> GetQuestionsByCategoryId(int catId);
+        Task<int> CreateQuestion(Library.Models.Question question);
         void DeleteQuestion(int id);
     }
 }
