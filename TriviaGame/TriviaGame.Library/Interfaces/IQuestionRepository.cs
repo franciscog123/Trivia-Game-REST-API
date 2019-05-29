@@ -14,5 +14,6 @@ namespace TriviaGame.Library.Interfaces
         IEnumerable<Library.Models.Question> GetQuestionsByCategoryId(int catId);
         Task<int> CreateQuestion(Library.Models.Question question);
         void DeleteQuestion(int id);
+        Task<int> GetLastQuestionAdded();
     }
 }
