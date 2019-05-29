@@ -104,8 +104,14 @@ namespace TriviaGame.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var success = await QuestionRepo.DeleteQuestion(id);
+            if(!success)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

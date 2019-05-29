@@ -13,7 +13,7 @@ namespace TriviaGame.Library.Interfaces
         Task <Question> GetQuestionById(int questionId);
         IEnumerable<Library.Models.Question> GetQuestionsByCategoryId(int catId);
         Task<int> CreateQuestion(Library.Models.Question question);
-        void DeleteQuestion(int id);
+        Task<bool> DeleteQuestion(int id);
         Task<int> GetLastQuestionAdded();
     }
 }

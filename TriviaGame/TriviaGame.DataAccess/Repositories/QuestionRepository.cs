@@ -104,12 +104,17 @@ namespace TriviaGame.DataAccess.Repositories
             return question.QuestionId;
         }
 
-        public void DeleteQuestion(int id)
+        public async Task<bool> DeleteQuestion(int id)
         {
             _logger.LogInformation($"Deleting Question with ID {id}");
-            Entities.Question question = _dbContext.Question.Find(id);
+            Entities.Question question = await _dbContext.Question.FindAsync(id);
+            if(question == null)
+            {
+                return false;
+            }
             _dbContext.Remove(question);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
         public async Task<int> GetLastQuestionAdded()
