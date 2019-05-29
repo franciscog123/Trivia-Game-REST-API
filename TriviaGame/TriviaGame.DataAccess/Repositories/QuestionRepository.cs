@@ -112,6 +112,24 @@ namespace TriviaGame.DataAccess.Repositories
             _dbContext.SaveChanges();
         }
 
+        public async Task<int> GetLastQuestionAdded()
+        {
+            try
+            {
+                return await Task.FromResult(_dbContext.Question.OrderByDescending(x => x.QuestionId).First().QuestionId);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+        }
+
         //Created a method to return an empty quiz collection so I don't have to repeat myself
         //in above methods in catch blocks. Done to fix code smell by returning empty collection 
         //instead of null.
