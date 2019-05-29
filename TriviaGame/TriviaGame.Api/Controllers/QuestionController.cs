@@ -17,12 +17,14 @@ namespace TriviaGame.Api.Controllers
         public IUserRepository UserRepo { get; set; }
         public IQuizRepository QuizRepo { get; set; }
         public IQuestionRepository QuestionRepo { get; set; }
+        public ICategoryRepository CategoryRepo { get; set; }
 
-        public QuestionController(IUserRepository userRepo, IQuizRepository quizRepo, IQuestionRepository questionRepo)
+        public QuestionController(IUserRepository userRepo, IQuizRepository quizRepo, IQuestionRepository questionRepo, ICategoryRepository catRepo)
         {
             UserRepo = userRepo;
             QuizRepo = quizRepo;
             QuestionRepo = questionRepo;
+            CategoryRepo = catRepo;
         }
 
         // GET: api/Question
@@ -54,6 +56,13 @@ namespace TriviaGame.Api.Controllers
         public IEnumerable<Question> GetQuestionsByCategory(int id)
         {
             return QuestionRepo.GetQuestionsByCategoryId(id);
+        }
+
+        [HttpGet]
+        [Route("GetCategories")]
+        public async Task<IEnumerable<Category>> GetCategories()
+        {
+            return await CategoryRepo.GetCategories();
         }
 
         // POST: api/Question
