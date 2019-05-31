@@ -9,8 +9,8 @@ namespace TriviaGame.Library.Interfaces
     public interface IQuizRepository
     {
         IEnumerable<Quiz> GetQuizzes();
-        Quiz GetQuizById(int id);
-        void AddQuiz(Quiz quiz);
+        Task<Quiz> GetQuizById(int id);
+        Task<int> CreateQuiz(Quiz quiz);
         void DeleteQuiz(int id);
         IEnumerable<Library.Models.Quiz> GetQuizzesByGameModeId(int gameModeId);
         IEnumerable<Library.Models.Quiz> GetQuizzesByUserId(int userId);

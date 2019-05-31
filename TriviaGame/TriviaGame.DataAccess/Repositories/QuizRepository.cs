@@ -67,7 +67,7 @@ namespace TriviaGame.DataAccess.Repositories
         /// </summary>
         /// <param name="id">The quiz</param>
         /// <returns></returns>
-        public Library.Models.Quiz GetQuizById(int id)
+        public async Task<Library.Models.Quiz> GetQuizById(int id)
         {
             try
             {
@@ -78,12 +78,15 @@ namespace TriviaGame.DataAccess.Repositories
                    .Include(g => g.GameMode)
                    .Include(c => c.Category);
                 //Mapper.Map(_dbContext.User.Include(q => q.Quiz).AsNoTracking().First(u => u.UserId == id));
-                return Mapper.Map(items.First(q=>q.QuizId==id));
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogError(ex.ToString());
-                return null;
+                var entity = await items.FirstAsync(q => q.QuizId == id);
+                if(entity is null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return Mapper.Map(entity);
+                }
             }
             catch (Exception ex)
             {
@@ -96,19 +99,19 @@ namespace TriviaGame.DataAccess.Repositories
         /// Add a quiz, including any associated objects. Updates log.
         /// </summary>
         /// <param name="quiz">The quiz</param>
-        public void AddQuiz(Library.Models.Quiz quiz)
+        public async Task <int> CreateQuiz (Library.Models.Quiz quiz)
         {
-            if (quiz.QuizId != 0)
+            if (quiz is null)
             {
-                _logger.LogWarning($"Quiz to be added has an ID ({quiz.QuizId}) already: ignoring.");
+                throw new ArgumentNullException(nameof(quiz));
             }
 
             _logger.LogInformation($"Adding quiz");
 
             Entities.Quiz entity = Mapper.Map(quiz);
-            entity.QuizId = 0;
-            _dbContext.Add(entity);
-            _dbContext.SaveChanges();
+             _dbContext.Add(entity);
+            await _dbContext.SaveChangesAsync();
+            return quiz.QuizId;
         }
 
         /// <summary>

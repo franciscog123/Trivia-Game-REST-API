@@ -41,11 +41,17 @@ namespace TriviaGame.Api.Controllers
             return quizzes;
         }
 
+       
         // GET: api/Quiz/5
         [HttpGet("{id}", Name = "GetQuizById")]
-        public Quiz GetQuizById(int id)
+        public async Task<ActionResult<Quiz>> GetQuizById(int id)
         {
-            return QuizRepo.GetQuizById(id);
+
+            if(await QuizRepo.GetQuizById(id) is Quiz quiz)
+            {
+                return quiz;
+            }
+            return NotFound();
             //return "value";
         }
 
@@ -103,8 +109,20 @@ namespace TriviaGame.Api.Controllers
 
         // POST: api/Quiz
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] Quiz quiz)
         {
+            try
+            {
+                var id = await QuizRepo.CreateQuiz(quiz);
+                Quiz model = await QuizRepo.GetQuizById(id);
+
+                return CreatedAtRoute("Get", new { Id = id }, model);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // PUT: api/Quiz/5
