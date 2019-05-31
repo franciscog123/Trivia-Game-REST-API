@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TriviaGame.Library.Models
 {
@@ -33,8 +34,22 @@ namespace TriviaGame.Library.Models
             get => _email;
             set
             {
-                _email = value;
+                if (new EmailAddressAttribute().IsValid(value))
+                {
+                    _email = value;
+                }
+                else
+                {
+                    throw new ArgumentException("email is not valid", nameof(value));
+                }
             }
+            /*try {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+    catch {
+                return false;
+            }*/
         }
         public int? CompletedQuizzes { get; set; }
         public List<Quiz> Quizzes { get; set; }
