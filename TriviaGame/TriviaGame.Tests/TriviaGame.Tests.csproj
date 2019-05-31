@@ -11,12 +11,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TriviaGame.Api\TriviaGame.Api.csproj" />
+    <ProjectReference Include="..\TriviaGame.DataAccess\TriviaGame.DataAccess.csproj" />
     <ProjectReference Include="..\TriviaGame.Library\TriviaGame.Library.csproj" />
   </ItemGroup>
 
