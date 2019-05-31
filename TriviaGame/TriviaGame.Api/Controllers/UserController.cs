@@ -48,7 +48,7 @@ namespace TriviaGame.Api.Controllers
         [HttpGet]
         [Route("GetUserByEmail/{email}")]
         // GET: api/User/5
-        public async Task<ActionResult<User>> GetUserById(string email)
+        public async Task<ActionResult<User>> GetUserByEmail(string email)
         {
             var user = await UserRepo.GetUserByEmail(email);
             if(user==null)
@@ -58,7 +58,13 @@ namespace TriviaGame.Api.Controllers
             return Ok(user);
         }
 
-
+        // GET: api/User/5
+        [HttpGet("{id}", Name = "GetUserById")]
+        public User GetUserById(int id)
+        {
+            var result = UserRepo.GetUserById(id);
+            return result;
+        }
 
         // POST: api/User
         [HttpPost]

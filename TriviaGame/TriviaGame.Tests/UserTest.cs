@@ -22,29 +22,5 @@ namespace TriviaGame.Tests
 
             Assert.Throws<ArgumentException>(() => user.UserName = name);
         }
-        [Fact]
-        public void EmailInvalid1()
-        {
-            var user = new User();
-            var email = "This is an invalid email address";
-
-            Assert.Throws<ArgumentException>(() => user.Email = email);
-        }
-        [Fact]
-        public void EmailInvalid2()
-        {
-            var user = new User();
-            var email = "invalid@email.crumb";
-
-            Assert.Throws<ArgumentException>(() => user.Email = email);
-        }
-        [Fact]
-        public void EmailInvalid3()
-        {
-            var user = new User();
-            var email = "invalidemail.com";
-
-            Assert.Throws<ArgumentException>(() => user.Email = email);
-        }
     }
 }
