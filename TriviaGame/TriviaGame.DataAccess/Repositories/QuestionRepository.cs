@@ -93,12 +93,10 @@ namespace TriviaGame.DataAccess.Repositories
             if (question is null)
             {
                 throw new ArgumentNullException(nameof(question));
-                //_logger.LogWarning($"Question to be added has an ID ({question.QuestionId}) already: ignoring.");
             }
             _logger.LogInformation($"Adding question");
 
             Entities.Question entity = Mapper.Map(question);
-            //entity.QuestionId = 0;
             _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
             return question.QuestionId;
