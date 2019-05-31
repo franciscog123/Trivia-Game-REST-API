@@ -31,27 +31,5 @@ namespace TriviaGame.Tests
             category.CategoryString = "History";
             Assert.Equal("History", category.CategoryString);
         }
-
-        //public ICategoryRepository CategoryRepo { get; set; }
-
-        //[Fact]
-        //public void CategoryRep_getCategories()
-        //{
-        //    //System.Diagnostics.Debugger.Launch();
-        //    IEnumerable<Category> categories = (IEnumerable<Category>)CategoryRepo.GetCategories();
-        //    //Assert.Equal("History", category.CategoryString);
-        //    //Category category = categories[0];
-        //    //Assert.Equal("Movies", category.CategoryString);
-        //    int x = 0;
-        //    foreach (var category in categories)
-        //    {
-        //       // Assert.Equal("Movies", category.CategoryString);
-        //        x++;
-        //    }
-        //    Assert.Equal(0, x);
-        //}
-
-
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,13 @@ namespace TriviaGame.Tests
 {
     public class UserRepoTest
     {
-        private readonly ILogger<UserRepository> _logger;
         private IUserRepository GetInMemoryUserRepository()
         {
+            var serviceProvider = new ServiceCollection().AddLogging().BuildServiceProvider();
+
+            var factory = serviceProvider.GetService<ILoggerFactory>();
+
+            var _logger = factory.CreateLogger<UserRepository>();
             DbContextOptions<TriviaGameDbContext> options;
             //var builder = new DbContextOptionsBuilder<TriviaGameDbContext>();
             //builder.UseInMemoryDatabase(builder, Action<InMemoryDbContextOptionsBuilder>);
@@ -32,6 +37,7 @@ namespace TriviaGame.Tests
         [Fact]
         public void Add_WhenHaveNoEmail()
         {
+            System.Diagnostics.Debugger.Launch();
             IUserRepository sut = GetInMemoryUserRepository();
             Library.Models.User user = new Library.Models.User()
             {
