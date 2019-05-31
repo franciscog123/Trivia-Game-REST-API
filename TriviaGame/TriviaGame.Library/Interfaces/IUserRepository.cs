@@ -13,5 +13,8 @@ namespace TriviaGame.Library.Interfaces
         void AddUser(User user);
         void DeleteUser(int id);
         IEnumerable<ScoreBoard> GetAllScoreboards();
+        Task<Library.Models.User> GetUserByEmail(string email);
+
+
     }
 }

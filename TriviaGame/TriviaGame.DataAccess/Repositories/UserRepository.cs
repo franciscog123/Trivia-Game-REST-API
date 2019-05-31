@@ -67,6 +67,25 @@ namespace TriviaGame.DataAccess.Repositories
           
         }
 
+        public async Task<Library.Models.User> GetUserByEmail(string email)
+        {
+            try
+            {
+                Entities.User user = await _dbContext.User.FirstOrDefaultAsync(a => a.Email.Equals(email));
+                if (user == null)
+                {
+                    throw new ArgumentException();
+                }
+                return Mapper.Map(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+                
+        }
+
         //copy of GetUsers method above that doesn't use async, 
         //because cant expose enumerators when using task data type to use in GetAllScoreboards method below
         public IEnumerable<Library.Models.User> OtherGetAllUsers(string search =null)
