@@ -15,6 +15,8 @@ namespace TriviaGame.Library.Interfaces
         IEnumerable<ScoreBoard> GetAllScoreboards();
         Task<Library.Models.User> GetUserByEmail(string email);
 
+        IEnumerable<User> OtherGetAllUsers(string search = null);
+
 
     }
 }
