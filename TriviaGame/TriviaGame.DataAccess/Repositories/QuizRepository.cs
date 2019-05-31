@@ -60,6 +60,8 @@ namespace TriviaGame.DataAccess.Repositories
             }
         }
 
+
+
         /// <summary>
         /// Get a Quiz by Id, including any associated objects. Updates log with error if action fails.
         /// </summary>
@@ -260,5 +262,45 @@ namespace TriviaGame.DataAccess.Repositories
                 var emptyQuizzes = Enumerable.Empty<Library.Models.Quiz>();
                 return emptyQuizzes;
             }
+
+        public async Task<Library.Models.Question> GetRandomQuestion(int categoryId)
+        {
+            try
+            {
+                //var randomNumbers = Enumerable.Range(1, 49).OrderBy(x => rnd.Next()).Take(6).ToList();
+                List<Library.Models.Question> categoryQuestions = await Task.FromResult(GetQuestionsByCategoryId(categoryId).ToList());
+                int numQuestions = categoryQuestions.Count();
+                Random rnd = new Random();
+                //int questionIndex = rnd.Next(0,numQuestions-1);
+                int questionIndex = (Enumerable.Range(0, numQuestions - 1).OrderBy(x => rnd.Next()).Take(1).ToList()[0]);
+                return categoryQuestions[questionIndex];
+            }
+            catch(Exception ex)
+            {
+                 _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
+        public IEnumerable<Library.Models.Question> GetQuestionsByCategoryId(int catId)
+        {
+            try
+            {
+                var items = Mapper.Map(_dbContext.Question
+                .Include(qc => qc.Choice)
+                .Include(c => c.Category).AsNoTracking());
+                return items.Where(q => q.CategoryId == catId);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Enumerable.Empty<Library.Models.Question>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Enumerable.Empty<Library.Models.Question>();
+            }
+        }
     }
 }

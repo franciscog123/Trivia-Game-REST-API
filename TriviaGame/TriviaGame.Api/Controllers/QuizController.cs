@@ -89,6 +89,18 @@ namespace TriviaGame.Api.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("GetRandomQuestion/{categoryId}")]
+        public async Task<ActionResult<Question>> GetRandomQuestion(int categoryId)
+        {
+            var result= await QuizRepo.GetRandomQuestion(categoryId);
+            if(result is null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
+
         // POST: api/Quiz
         [HttpPost]
         public void Post([FromBody] string value)

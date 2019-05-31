@@ -34,8 +34,6 @@ namespace TriviaGame.Api.Controllers
                 return NotFound();
             }
             return Ok(users);
-
-            //return new string[] { "value1", "value2" };
         }
         //GET: api/user/getscoreboards
         [HttpGet]
