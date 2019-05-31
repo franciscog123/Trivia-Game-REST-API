@@ -36,7 +36,7 @@ namespace TriviaGame.Api
                 options.AddPolicy(AllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("localhost:4200");
+                    builder.WithOrigins("http://localhost:4200");
                 });
             });
 
