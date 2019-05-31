@@ -24,11 +24,23 @@ namespace TriviaGame.Api
             Configuration = configuration;
         }
 
+        readonly string AllowSpecificOrigins = "_AllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200",
+                        "https://1904-triviagame-asp-ng.azurewebsites.net/");
+                });
+            });
+
             services.AddDbContext<TriviaGameDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TriviaGameDb")));
 
@@ -54,6 +66,8 @@ namespace TriviaGame.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(AllowSpecificOrigins);
 
             app.UseHttpsRedirection();
             app.UseMvc();
