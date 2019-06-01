@@ -50,8 +50,24 @@ namespace TriviaGame.DataAccess
             //User = Map(quiz.User)
         };
 
+
         public static Library.Models.Question Map(Entities.QuizQuestion quizQuestion) =>
             Map(quizQuestion.Question);
+
+
+        public static Library.Models.QuizQuestion Map2(Entities.QuizQuestion quizQuestion) => new Library.Models.QuizQuestion
+        {
+            QuizQuestionId=quizQuestion.QuizQuestionId,
+            QuestionId=quizQuestion.QuizQuestionId,
+            QuizId=quizQuestion.QuizId
+        };
+        //francisco added this, used for adding quizquestion to database
+        public static Entities.QuizQuestion Map(Library.Models.QuizQuestion quizQuestion)=>new Entities.QuizQuestion
+        {
+            QuizQuestionId=quizQuestion.QuizQuestionId,
+            QuizId=quizQuestion.QuizId,
+            QuestionId=quizQuestion.QuestionId
+        };
 
         public static Library.Models.Question Map(Entities.Question question) => new Library.Models.Question
         {

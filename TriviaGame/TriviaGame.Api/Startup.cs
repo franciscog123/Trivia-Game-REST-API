@@ -50,6 +50,7 @@ namespace TriviaGame.Api
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IChoiceRepository, ChoiceRepository>();
             services.AddScoped<IGameModeRepository, GameModeRepository>();
+            services.AddScoped<IQuizQuestionRepository, QuizQuestionRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

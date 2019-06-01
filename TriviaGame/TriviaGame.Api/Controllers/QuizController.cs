@@ -29,7 +29,6 @@ namespace TriviaGame.Api.Controllers
         {
             var quizzes = QuizRepo.GetQuizzes();
             return quizzes;
-            //return new string[] { "value1", "value2" };
         }
 
         //GET: api/quiz/getquizzesbygamemode/1

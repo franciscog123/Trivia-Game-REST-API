@@ -314,5 +314,25 @@ namespace TriviaGame.DataAccess.Repositories
                 return Enumerable.Empty<Library.Models.Question>();
             }
         }
+
+        /*  WORK IN PROGRESS
+        public async Task<bool> UpdateQuizScore(Quiz quiz)
+        {
+            if (quiz.id != 0)
+            {
+                throw new ArgumentException("invalid quiz", nameof(quiz));
+            }
+
+            Entities.Quiz existing = await _dbContext.Quiz.FindAsync(quiz.Id);
+
+            if(existing is null)
+            {
+                return false;
+            }
+
+            Entities.Quiz entity = Mapper.Map(quiz);
+
+
+        }*/
     }
 }
