@@ -126,8 +126,28 @@ namespace TriviaGame.Api.Controllers
 
         // PUT: api/Quiz/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] Quiz quiz)
         {
+            try
+            {
+                Quiz existing = await QuizRepo.GetQuizById(id);
+                if(existing is null)
+                {
+                    return NotFound();
+                }
+                quiz.QuizId = id;
+
+                var success = await QuizRepo.EditQuiz(quiz);
+                if(!success)
+                {
+                    return BadRequest("invalid request");
+                }
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
 
         // DELETE: api/ApiWithActions/5

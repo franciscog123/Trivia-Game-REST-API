@@ -314,25 +314,29 @@ namespace TriviaGame.DataAccess.Repositories
                 return Enumerable.Empty<Library.Models.Question>();
             }
         }
-
-        /*  WORK IN PROGRESS
-        public async Task<bool> UpdateQuizScore(Quiz quiz)
+        
+        public async Task<bool> EditQuiz(Library.Models.Quiz quiz)
         {
-            if (quiz.id != 0)
+            try
             {
-                throw new ArgumentException("invalid quiz", nameof(quiz));
+                if (quiz == null)
+                {
+                    throw new ArgumentException();
+                }
+
+                Entities.Quiz existing = await _dbContext.Quiz.FindAsync(quiz.QuizId);
+                Entities.Quiz newQuiz = Mapper.Map(quiz);
+
+                _dbContext.Entry(existing).CurrentValues.SetValues(newQuiz);
+
+                _dbContext.SaveChanges();
+                return true;
             }
-
-            Entities.Quiz existing = await _dbContext.Quiz.FindAsync(quiz.Id);
-
-            if(existing is null)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.ToString());
                 return false;
             }
-
-            Entities.Quiz entity = Mapper.Map(quiz);
-
-
-        }*/
+        }
     }
 }

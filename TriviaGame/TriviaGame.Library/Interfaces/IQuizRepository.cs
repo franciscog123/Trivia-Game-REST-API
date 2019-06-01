@@ -18,5 +18,6 @@ namespace TriviaGame.Library.Interfaces
         Task<int> CalcTotalScoreByUser(int userId);//Todo:didn't use this, might delete later
         int GetLastQuizId();
         Task<Library.Models.Question> GetRandomQuestion(int categoryId);
+        Task<bool> EditQuiz(Library.Models.Quiz quiz);
     }
 }
