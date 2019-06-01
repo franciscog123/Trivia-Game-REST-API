@@ -37,8 +37,7 @@ namespace TriviaGame.Api
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:4200",
-                        "https://1904-triviagame-asp-ng.azurewebsites.net",
-                        "http://1904-triviagame-asp-ng.azurewebsites.net");
+                        "https://1904-triviagame-asp-ng.azurewebsites.net/").AllowAnyHeader().AllowAnyMethod();
                 });
             });
 
@@ -51,6 +50,7 @@ namespace TriviaGame.Api
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IChoiceRepository, ChoiceRepository>();
             services.AddScoped<IGameModeRepository, GameModeRepository>();
+            services.AddScoped<IQuizQuestionRepository, QuizQuestionRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

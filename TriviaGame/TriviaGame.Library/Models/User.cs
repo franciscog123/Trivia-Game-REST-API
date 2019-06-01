@@ -43,13 +43,6 @@ namespace TriviaGame.Library.Models
                     throw new ArgumentException("email is not valid", nameof(value));
                 }
             }
-            /*try {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-    catch {
-                return false;
-            }*/
         }
         public int? CompletedQuizzes { get; set; }
         public List<Quiz> Quizzes { get; set; }
