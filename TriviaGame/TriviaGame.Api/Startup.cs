@@ -37,7 +37,9 @@ namespace TriviaGame.Api
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:4200",
-                        "https://1904-triviagame-asp-ng.azurewebsites.net/");
+                        "http://1904-triviagame-asp-ng.azurewebsites.net",
+                        "https://1904-triviagame-asp-ng.azurewebsites.net")
+                        .AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
                 });
             });
 
