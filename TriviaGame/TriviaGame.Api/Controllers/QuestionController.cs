@@ -61,9 +61,14 @@ namespace TriviaGame.Api.Controllers
 
         [HttpGet]
         [Route("GetCategories")]
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await CategoryRepo.GetCategories();
+            var items = await CategoryRepo.GetCategories();
+            if (items == null)
+            {
+                return NotFound();
+            }
+            return Ok(items);
         }
 
         [HttpGet]
