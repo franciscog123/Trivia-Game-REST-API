@@ -111,6 +111,15 @@ namespace TriviaGame.DataAccess.Repositories
             Entities.Quiz entity = Mapper.Map(quiz);
              _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
+
+            //update user completed quizzes
+            Entities.User userEntity =  _dbContext.User.Where(u => u.UserId == entity.UserId).First();
+            if(userEntity!=null)
+            {
+                userEntity.CompletedQuizzes += 1;
+                await _dbContext.SaveChangesAsync();
+            }
+
             return quiz.QuizId;
         }
 
