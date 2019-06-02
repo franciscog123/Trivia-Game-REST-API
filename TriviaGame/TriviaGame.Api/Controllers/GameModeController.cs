@@ -30,29 +30,19 @@ namespace TriviaGame.Api.Controllers
             return Ok(items);
         }
 
-        //// GET: api/GameMode/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST: api/GameMode
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT: api/GameMode/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        //GET: api/gammode/getgamemode/5
+        [HttpGet]
+        [Route("GetGameMode/{id}")]
+        public async Task<ActionResult<string>> GetGameMode(int id)
+        {
+            var gameMode = await _gameModeRepo.GetGameModeById(id);
+            {
+                if (gameMode == null)
+                {
+                    return NotFound();
+                }
+                return Ok(gameMode);
+            }
+        }
     }
 }

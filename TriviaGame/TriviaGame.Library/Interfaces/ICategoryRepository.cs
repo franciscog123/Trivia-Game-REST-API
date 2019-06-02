@@ -9,5 +9,6 @@ namespace TriviaGame.Library.Interfaces
     public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> GetCategories();
+        Task<string> GetCategoryById(int id);
     }
 }

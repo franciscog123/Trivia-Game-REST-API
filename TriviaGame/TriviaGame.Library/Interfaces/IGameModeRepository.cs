@@ -9,5 +9,7 @@ namespace TriviaGame.Library.Interfaces
     public interface IGameModeRepository
     {
         Task<IEnumerable<GameMode>> GetGameModes();
+        Task<string> GetGameModeById(int id);
+
     }
 }

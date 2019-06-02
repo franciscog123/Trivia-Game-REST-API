@@ -27,5 +27,20 @@ namespace TriviaGame.DataAccess.Repositories
 
             return await Task.FromResult(Mapper.Map(_dbContext.Category));
         }
+
+        public async Task<string> GetCategoryById(int id)
+        {
+            var items = _dbContext.Category;
+            var entity = await items.FirstOrDefaultAsync(x => x.CategoryId == id);
+            if (entity is null)
+            {
+                return null;
+            }
+            else
+            {
+                var categoryString = Mapper.Map(entity).CategoryString;
+                return categoryString;
+            }
+        }
     }
 }

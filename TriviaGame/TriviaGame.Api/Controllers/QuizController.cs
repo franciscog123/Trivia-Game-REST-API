@@ -16,11 +16,13 @@ namespace TriviaGame.Api.Controllers
 
         public IUserRepository UserRepo { get; set; }
         public IQuizRepository QuizRepo { get; set; }
+        public ICategoryRepository CategoryRepo { get; set; }
 
-        public QuizController(IUserRepository userRepo, IQuizRepository quizRepo)
+        public QuizController(IUserRepository userRepo, IQuizRepository quizRepo, ICategoryRepository catRepo)
         {
             UserRepo = userRepo;
             QuizRepo = quizRepo;
+            CategoryRepo = catRepo;
         }
 
         // GET: api/Quiz
@@ -70,6 +72,20 @@ namespace TriviaGame.Api.Controllers
         {
             var quizzes = QuizRepo.GetQuizzesByUserId(id);
             return quizzes;
+        }
+
+        [HttpGet]
+        [Route("GetCategory/{id}")]
+        public async Task<ActionResult<string>> GetCategory(int id)
+        {
+            var category = await CategoryRepo.GetCategoryById(id);
+            {
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                return Ok(category);
+            }
         }
 
         //GET: api/quiz/getquizzesbyuser/1

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,7 +32,21 @@ namespace TriviaGame.DataAccess.Repositories
                 _logger.LogError(ex.ToString());
                 return null;
             }
+        }
 
+        public async Task<string> GetGameModeById(int id)
+        {
+            var items = _dbContext.GameMode;
+            var entity = await items.FirstOrDefaultAsync(x => x.GameModeId == id);
+            if(entity is null)
+            {
+                return null;
+            }
+            else
+            {
+                var gameModeString= Mapper.Map(entity).GameModeString;
+                return gameModeString;
+            }
         }
     }
 }
