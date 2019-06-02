@@ -18,7 +18,7 @@ namespace TriviaGame.Api.Controllers
         {
             _gameModeRepo = gameModeRepo;
         }
-        // GET: api/GameMode
+        // GET: api/GameMode/getgamemodes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GameMode>>> GetGameModes()
         {
