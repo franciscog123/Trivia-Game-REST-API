@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using TriviaGame.DataAccess.Entities;
@@ -96,8 +97,9 @@ namespace TriviaGame.Tests
             IEnumerable<Library.Models.Quiz> qzs =  sut1.GetQuizzes();
             IEnumerable<Library.Models.Quiz> qzs1 =  sut1.GetQuizzesByCategoryId(1);
             IEnumerable<Library.Models.Quiz> qzs2 = sut1.GetQuizzesByGameModeId(1);
-            IEnumerable<Library.Models.Quiz> qzs3 = sut1.GetQuizzesByUserId(1);
-            Library.Models.Question q = await sut1.GetRandomQuestion(1);
+            IEnumerable<Library.Models.Quiz> qzs3 = sut1.GetQuizzesByUserId(3);
+            //Library.Models.Question q = await sut1.GetRandomQuestion(1);
+            
 
 
 
