@@ -109,6 +109,7 @@ namespace TriviaGame.DataAccess.Repositories
             _logger.LogInformation($"Adding quiz");
 
             Entities.Quiz entity = Mapper.Map(quiz);
+            entity.Time = DateTime.Now;
              _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
 
