@@ -94,10 +94,10 @@ namespace TriviaGame.Tests
             bool something = await sut1.EditQuiz(quiz4);
             // Library.Models.Quiz testQuiz = await sut1.GetQuizById(2);
             //Assert.Equal(90, testQuiz.Score);
-            //IEnumerable<Library.Models.Quiz> qzs =  sut1.GetQuizzes();
-            //IEnumerable<Library.Models.Quiz> qzs1 =  sut1.GetQuizzesByCategoryId(1);
-            //IEnumerable<Library.Models.Quiz> qzs2 = sut1.GetQuizzesByGameModeId(1);
-            //IEnumerable<Library.Models.Quiz> qzs3 = sut1.GetQuizzesByUserId(3);
+            var qzs =  sut1.GetQuizzes();
+            var qzs1 =  sut1.GetQuizzesByCategoryId(1);
+            var qzs2 = sut1.GetQuizzesByGameModeId(1);
+            var qzs3 = sut1.GetQuizzesByUserId(3);
             //Library.Models.Question q = await sut1.GetRandomQuestion(1);
             
 
