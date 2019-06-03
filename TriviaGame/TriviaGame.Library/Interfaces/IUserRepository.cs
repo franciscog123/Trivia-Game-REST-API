@@ -17,6 +17,8 @@ namespace TriviaGame.Library.Interfaces
         Task<Library.Models.User> GetUserAsync(int userId);
         IEnumerable<User> OtherGetAllUsers(string search = null);
 
+        int CalcTotalScoresByUser(int userId);
+
 
     }
 }
