@@ -17,6 +17,8 @@ namespace TriviaGame.Library.Interfaces
 
         IEnumerable<User> OtherGetAllUsers(string search = null);
 
+        int CalcTotalScoresByUser(int userId);
+
 
     }
 }
