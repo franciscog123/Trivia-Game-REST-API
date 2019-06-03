@@ -58,8 +58,8 @@ namespace TriviaGame.Tests
 
 
 
-            sut.AddUser(user);
-            sut.AddUser(user2);
+            await sut.AddUser(user);
+            await sut.AddUser(user2);
             
 
             //Assert.True(sut.OtherGetAllUsers().ToList().Count() == 2);
