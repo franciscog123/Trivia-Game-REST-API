@@ -77,7 +77,6 @@ namespace TriviaGame.DataAccess.Repositories
                            .ThenInclude(c => c.Choice)
                    .Include(g => g.GameMode)
                    .Include(c => c.Category);
-                //Mapper.Map(_dbContext.User.Include(q => q.Quiz).AsNoTracking().First(u => u.UserId == id));
                 var entity = await items.FirstAsync(q => q.QuizId == id);
                 if(entity is null)
                 {
@@ -245,7 +244,6 @@ namespace TriviaGame.DataAccess.Repositories
             }
         }
 
-        //Todo: havent used this, might delete later
         public async Task<int> CalcTotalScoreByUser(int userId)
         {
             try
@@ -279,11 +277,9 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                //var randomNumbers = Enumerable.Range(1, 49).OrderBy(x => rnd.Next()).Take(6).ToList();
                 List<Library.Models.Question> categoryQuestions = await Task.FromResult(GetQuestionsByCategoryId(categoryId).ToList());
                 int numQuestions = categoryQuestions.Count();
                 Random rnd = new Random();
-                //int questionIndex = rnd.Next(0,numQuestions-1);
                 int questionIndex = (Enumerable.Range(0, numQuestions - 1).OrderBy(x => rnd.Next()).Take(1).ToList()[0]);
                 return categoryQuestions[questionIndex];
             }

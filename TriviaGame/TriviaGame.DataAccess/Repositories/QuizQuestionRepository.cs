@@ -39,8 +39,6 @@ namespace TriviaGame.DataAccess.Repositories
             try
             {
                 var items = _dbContext.QuizQuestion;
-                    /*.Include(q => q.Question)
-                           .ThenInclude(c => c.Choice);*/
 
                 var entity = await items.FirstOrDefaultAsync(x => x.QuizQuestionId == id);
                 if (entity is null)

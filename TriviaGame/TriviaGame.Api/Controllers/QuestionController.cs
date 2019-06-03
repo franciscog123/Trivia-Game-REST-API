@@ -49,8 +49,6 @@ namespace TriviaGame.Api.Controllers
              return question;
             }
             return NotFound();
-            //var result = await QuestionRepo.GetQuestionById(id);
-            //return result;
         }
         [HttpGet]
         [Route("GetQuestionsByCategory/{id}")]
@@ -99,13 +97,6 @@ namespace TriviaGame.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-
-        // PUT: api/Question/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
 
         // DELETE: api/ApiWithActions/5

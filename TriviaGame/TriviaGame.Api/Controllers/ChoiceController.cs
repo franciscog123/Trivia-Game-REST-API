@@ -66,17 +66,5 @@ namespace TriviaGame.Api.Controllers
             }
             return Ok(items);
         }
-
-        // PUT: api/Choice/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

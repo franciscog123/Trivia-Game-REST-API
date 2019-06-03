@@ -34,11 +34,6 @@ namespace TriviaGame.DataAccess.Repositories
         {
             try
             {
-                /*var items= Mapper.Map(_dbContext.Question
-                .Include(qc => qc.Choice)
-                .Include(c => c.Category).AsNoTracking());
-                return await Task.FromResult(items.First(q => q.QuestionId == questionId)); original getquestionbyid method
-                */
                 var items =  _dbContext.Question
                  .Include(qc => qc.Choice)
                  .Include(c => c.Category).AsNoTracking();

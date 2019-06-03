@@ -19,15 +19,6 @@ namespace TriviaGame.Api.Controllers
         {
             QQRepo = qqRepo;
         }
-
-        /*
-        // GET: api/QuizQuestion
-        [HttpGet]
-        public IEnumerable<string> GetQuizQuestion()
-        {
-            return new string[] { "value1", "value2" };
-        }*/
-        
         
         // GET: api/QuizQuestion/5
         [HttpGet("{id}", Name = "GetQuizQuestion")]
@@ -55,18 +46,5 @@ namespace TriviaGame.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        /*
-        // PUT: api/QuizQuestion/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }

@@ -53,7 +53,6 @@ namespace TriviaGame.Api.Controllers
                 return quiz;
             }
             return NotFound();
-            //return "value";
         }
 
         // GET: api/Quiz/5
@@ -62,7 +61,6 @@ namespace TriviaGame.Api.Controllers
         public int GetLastQuizId()
         {
             return QuizRepo.GetLastQuizId();
-            //return "value";
         }
 
         //GET: api/quiz/getquizzesbyuser/1
@@ -97,7 +95,7 @@ namespace TriviaGame.Api.Controllers
             return quizzes;
         }
 
-        //Todo: haven't used this, might delete later
+        //haven't used this, might delete later
         [HttpGet]
         [Route("CalcTotalScoreByUser/{id}")]
         public async Task<ActionResult<int>> CalcTotalScoreByUser(int id)
@@ -164,12 +162,6 @@ namespace TriviaGame.Api.Controllers
                 return BadRequest(ex.Message);
             }
             return NoContent();
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
