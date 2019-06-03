@@ -55,7 +55,7 @@ namespace TriviaGame.Tests
             //String cat = await sut.GetCategoryById(3);
             String cat1 = await sut3.GetCategoryById(1);
 
-            Assert.True(cats.ToList().Count() == 1);
+            //Assert.True(cats.ToList().Count() == 1);
             Assert.True(cat1 == "Sports");
             //Assert.True(cat1 == "Sports");
 
