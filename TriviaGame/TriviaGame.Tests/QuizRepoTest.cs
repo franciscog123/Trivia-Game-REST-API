@@ -91,8 +91,15 @@ namespace TriviaGame.Tests
             Library.Models.Quiz quiz3 = await sut1.GetQuizById(2);
             Assert.Equal(10, quiz3.Score);
             bool something = await sut1.EditQuiz(quiz4);
-           // Library.Models.Quiz testQuiz = await sut1.GetQuizById(2);
+            // Library.Models.Quiz testQuiz = await sut1.GetQuizById(2);
             //Assert.Equal(90, testQuiz.Score);
+            IEnumerable<Library.Models.Quiz> qzs =  sut1.GetQuizzes();
+            IEnumerable<Library.Models.Quiz> qzs1 =  sut1.GetQuizzesByCategoryId(1);
+            IEnumerable<Library.Models.Quiz> qzs2 = sut1.GetQuizzesByGameModeId(1);
+            IEnumerable<Library.Models.Quiz> qzs3 = sut1.GetQuizzesByUserId(1);
+            Library.Models.Question q = await sut1.GetRandomQuestion(1);
+
+
 
 
 

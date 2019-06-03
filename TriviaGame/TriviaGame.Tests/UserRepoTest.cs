@@ -67,6 +67,8 @@ namespace TriviaGame.Tests
             Assert.Equal("Rodsalomon", TestUser.UserName);
             Library.Models.User TestUser2 = sut.GetUserById(2);
             Assert.Equal("Fransalomon", TestUser2.UserName);
+            sut.DeleteUser(2);
+            //sut.GetUsers();
         }
     }
 }
