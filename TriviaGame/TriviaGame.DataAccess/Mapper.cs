@@ -44,7 +44,7 @@ namespace TriviaGame.DataAccess
             CategoryId = quiz.CategoryId,
             GameModeId = quiz.GameModeId,
             Score = quiz.Score,
-            Time = quiz.Time,
+            //Time = quiz.Time,
             //Category = Map(quiz.Category),
             //GameMode = Map(quiz.GameMode),
             //User = Map(quiz.User)
