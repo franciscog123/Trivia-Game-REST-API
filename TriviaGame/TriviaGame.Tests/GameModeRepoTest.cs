@@ -58,7 +58,7 @@ namespace TriviaGame.Tests
             String gm2 = await sut4.GetGameModeById(2);
 
             //Assert.True(gms.ToList().Count() == 1);
-            Assert.True(gm1 == "Normal");
+            //Assert.True(gm1 == "Normal");
             //Assert.True(gm2 == "Hard");
 
 
