@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TriviaGame.DataAccess.Entities;
 using TriviaGame.DataAccess.Repositories;
 using TriviaGame.Library.Interfaces;
@@ -35,24 +36,44 @@ namespace TriviaGame.Tests
         }
 
         [Fact]
-        public void Add_WhenHaveNoEmail()
+        public async void Add_User()
         {
-            System.Diagnostics.Debugger.Launch();
             IUserRepository sut = GetInMemoryUserRepository();
+            //IQuizRepository sut1 = GetInMemoryUserRepository();
+
+
+
             Library.Models.User user = new Library.Models.User()
             {
                 UserName = "Rodsalomon",
                 UserId = 1,
-               // Surname = "Blogs"
+                Email = "fake@hotmail.com",
+            };
+            Library.Models.User user2 = new Library.Models.User()
+            {
+                UserName = "Fransalomon",
+                UserId = 2,
+                Email = "fake2@hotmail.com",
             };
 
-            sut.AddUser(user);
-            //IEnumerable < user > =
 
-            Assert.True(sut.OtherGetAllUsers().ToList().Count() == 1);
-            //Assert.Equal("fred", savedPerson.FirstName);
-            //Assert.Equal("Blogs", savedPerson.Surname);
-            //Assert.Null(savedPerson.EmailAddresses);
+
+            await sut.AddUser(user);
+            await sut.AddUser(user2);
+            
+
+            //Assert.True(sut.OtherGetAllUsers().ToList().Count() == 2);
+            Library.Models.User TestUser = await sut.GetUserByEmail("fake@hotmail.com");
+            Assert.Equal("Rodsalomon", TestUser.UserName);
+            Library.Models.User TestUser2 = sut.GetUserById(2);
+            Assert.Equal("Fransalomon", TestUser2.UserName);
+            sut.DeleteUser(2);
+            var h = sut.GetUsers();
+            var x = sut.OtherGetAllUsers();
+            var y = sut.GetUserAsync(1);
+            var f = sut.CalcTotalScoresByUser(1);
+
+
         }
     }
 }
