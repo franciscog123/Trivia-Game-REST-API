@@ -114,22 +114,38 @@ namespace TriviaGame.DataAccess.Repositories
         public Library.Models.User GetUserById(int id) =>
             Mapper.Map(_dbContext.User.Include(q => q.Quiz).AsNoTracking().First(u => u.UserId == id));
 
+
+        public async Task<Library.Models.User> GetUserAsync(int userId)
+        {
+            var items = _dbContext.User.Include(q => q.Quiz).AsNoTracking();
+
+            var entity = await items.FirstOrDefaultAsync(x => x.UserId == userId);
+            if(entity is null)
+            {
+                return null;
+            }
+            else
+            {
+                return Mapper.Map(entity);
+            }
+
+        }
         /// <summary>
         /// Adds a new User into the database and updates the log
         /// </summary>
         /// <param name="user">The Library model of the User to be added</param>
-        public void AddUser(Library.Models.User user)
+        public async Task <int> AddUser(Library.Models.User user)
         {
-            if(user.UserId != 0)
+            if(user is null)
             {
-                _logger.LogWarning($"User to be added has an ID ({user.UserId}) already. Ignoring");
+                throw new ArgumentNullException(nameof(user));
             }
             _logger.LogInformation($"Adding user {user.UserName}");
 
             DataAccess.Entities.User entity = Mapper.Map(user);
-            entity.UserId = 0;
             _dbContext.Add(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+            return user.UserId;
         }
 
         //calculates total score for a single user

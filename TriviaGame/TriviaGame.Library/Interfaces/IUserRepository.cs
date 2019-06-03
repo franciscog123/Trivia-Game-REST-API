@@ -10,11 +10,11 @@ namespace TriviaGame.Library.Interfaces
     {
         Task<IEnumerable<User>> GetUsers(string search = null);
         User GetUserById(int id);
-        void AddUser(User user);
+        Task<int> AddUser(Library.Models.User user);
         void DeleteUser(int id);
         IEnumerable<ScoreBoard> GetAllScoreboards();
         Task<Library.Models.User> GetUserByEmail(string email);
-
+        Task<Library.Models.User> GetUserAsync(int userId);
         IEnumerable<User> OtherGetAllUsers(string search = null);
 
 
