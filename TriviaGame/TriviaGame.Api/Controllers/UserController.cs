@@ -56,18 +56,31 @@ namespace TriviaGame.Api.Controllers
             return Ok(user);
         }
 
-        // GET: api/User/5
+        // GET: api/getUserbyid/5
         [HttpGet("{id}", Name = "GetUserById")]
-        public User GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var result = UserRepo.GetUserById(id);
-            return result;
+            if(await UserRepo.GetUserAsync(id)is User user)
+            {
+                return user;
+            }
+            return NotFound();
         }
 
         // POST: api/User
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] User user)
         {
+            try
+            {
+                var id = await UserRepo.AddUser(user);
+                User model = await UserRepo.GetUserAsync(id);
+                return CreatedAtRoute("Get", new { Id = id }, model);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT: api/User/5

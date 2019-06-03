@@ -55,6 +55,18 @@ namespace TriviaGame.Api.Controllers
 
         }
 
+        [HttpGet]
+        [Route("GetQuestionChoices/{id}")]
+        public async Task<ActionResult<IEnumerable<Choice>>> GetQuestionChoices(int id)
+        {
+            var items = await ChoiceRepo.GetChoicesByQuestionId(id);
+            if(items==null)
+            {
+                return NotFound();
+            }
+            return Ok(items);
+        }
+
         // PUT: api/Choice/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

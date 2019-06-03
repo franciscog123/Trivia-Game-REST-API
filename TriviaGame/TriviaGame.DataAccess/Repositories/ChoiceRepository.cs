@@ -50,5 +50,19 @@ namespace TriviaGame.DataAccess.Repositories
                 return Mapper.Map(entity);
             }
         }
+
+        public async Task<IEnumerable<Library.Models.Choice>> GetChoicesByQuestionId(int id)
+        {
+            var items = _dbContext.Choice;
+            var entities = await Task.FromResult(items.Where(x => x.QuestionId == id));
+            if(entities is null)
+            {
+                return null;
+            }
+            else
+            {
+                return Mapper.Map(entities);
+            }
+        }
     }
 }

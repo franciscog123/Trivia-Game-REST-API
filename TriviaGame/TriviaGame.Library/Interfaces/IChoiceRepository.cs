@@ -10,5 +10,6 @@ namespace TriviaGame.Library.Interfaces
     {
         Task <int> CreateChoice(Library.Models.Choice choice);
         Task<Choice> GetChoiceById(int id);
+        Task<IEnumerable<Library.Models.Choice>> GetChoicesByQuestionId(int id);
     }
 }
