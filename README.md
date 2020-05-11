@@ -9,6 +9,7 @@ Created with the following technologies:
 - Entity Framework
 - ILogger (for logging)
 - Azure SQL DB
+- Azure Pipelines (CI/CD)
 
 Structure:
 - Business logic/class library
