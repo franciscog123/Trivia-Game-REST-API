@@ -10,6 +10,7 @@ Created with the following technologies:
 - ILogger (for logging)
 - Azure SQL DB
 - Azure Pipelines (CI/CD)
+- xUnit
 
 Structure:
 - Business logic/class library
