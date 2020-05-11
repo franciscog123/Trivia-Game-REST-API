@@ -11,6 +11,7 @@ Created with the following technologies:
 - Azure SQL DB
 - Azure Pipelines (CI/CD)
 - xUnit
+- Docker
 
 Structure:
 - Business logic/class library
